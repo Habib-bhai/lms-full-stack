@@ -2,7 +2,14 @@ import { NextResponse } from 'next/server';
 import shippo from '@/utils/shippoClient';
 
 export async function GET(request: Request) {
+
+
+  
+
+  console.log("===============>>>>>>>>>>>>>>", request)
   const { searchParams } = new URL(request.url);
+console.log(searchParams, "+++++++=+++++++++++++++==========")
+
   const carrier = searchParams.get('carrier');
   const trackingNumber = searchParams.get('trackingNumber');
 

@@ -71,6 +71,9 @@ export default function CheckoutPage() {
 
   const handleRateSelect = async (rate: Rate) => {
     try {
+
+      // console.log("Rate selected:", rate);
+
       const response = await fetch('/api/create-label', {
         method: 'POST',
         headers: {

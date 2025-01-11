@@ -8,6 +8,7 @@ export interface Address {
     country: string;
     phone: string;
     email: string;
+    validate: boolean
   }
   
   export interface Parcel {
@@ -26,15 +27,20 @@ export interface Address {
   }
   
   export interface Rate {
-    object_id: string;
-    provider: string;
-    servicelevel: {
-      name: string;
-      token: string;
+    objectId: string;            // Unique identifier for the rate
+    amount: string;             // Cost in USD
+    amountLocal: string;        // Cost in local currency
+    currency: string;           // Currency code (e.g., 'USD')
+    currencyLocal: string;      // Local currency code (e.g., 'PKR')
+    estimatedDays: number;      // Delivery time estimate
+    provider: string;           // Shipping carrier name
+    providerImage75: string;    // Carrier logo (small)
+    durationTerms: string;      // Human-readable delivery time
+    servicelevel: {             // You'll need to expand this based on what servicelevel contains
+      name?: string;
+      token?: string;
     };
-    amount: string;
-    estimated_days: number;
-    duration_terms: string;
+    test: boolean; 
   }
   
   export interface TrackingEvent {

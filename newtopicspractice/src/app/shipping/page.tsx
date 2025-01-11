@@ -6,7 +6,7 @@ import { Address, Rate } from '@/types/shipping';
 
 export default function CheckoutPage() {
   const [shipmentId, setShipmentId] = useState<string | null>(null);
-  const [rates, setRates] = useState<Rate[]>([]);
+  const [rates, setRates] = useState<{rate: Rate[]}>({rate: []});
 
   const handleAddressSubmit = async (address: Address) => {
     try {
@@ -23,7 +23,10 @@ export default function CheckoutPage() {
             state: 'ST',
             zip: '12345',
             country: 'US',
-          } as Address,
+            email: "helloworld@gmail.com",
+            phone: "83838383",
+            validate: true
+          },
           addressTo: address,
           parcels: [
             {
@@ -39,22 +42,28 @@ export default function CheckoutPage() {
       });
 
       const shipment = await response.json();
-
-
-      console.log("shipment ==>>>",shipment.addressFrom.objectId)      
-      setShipmentId(shipment.addressFrom.objectId);
-
+      console.log("Full shipment response:", shipment);
       
-      const ratesResponse = await fetch('/api/get-rates', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ shipmentId: shipment.addressFrom.objectId}),
-      });
+      if (shipment.objectId) {
+        setShipmentId(shipment.objectId);
 
-      const ratesData = await ratesResponse.json();
-      setRates(ratesData.rates);
+        const ratesResponse = await fetch(`/api/get-rates`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({shipmentId: shipment.objectId})
+          
+        });
+
+        const ratesData = await ratesResponse.json();
+        console.log("Rates====> : ", ratesData);
+
+        setRates(ratesData);
+      } else {
+        
+        console.error('Shipment creation failed:', shipment);
+      }
     } catch (error) {
       console.error('Error creating shipment:', error);
     }
@@ -67,11 +76,11 @@ export default function CheckoutPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ rateId: rate.object_id }),
+        body: JSON.stringify({ rateId: rate.objectId }),
       });
 
       const transaction = await response.json();
-      // console.log('Label created:', transaction);
+      console.log('Label created:', transaction);
       // Here you would typically save the transaction details and proceed with the order
     } catch (error) {
       console.error('Error creating label:', error);
@@ -84,7 +93,7 @@ export default function CheckoutPage() {
       {!shipmentId ? (
         <ShippingAddressForm onSubmit={handleAddressSubmit} />
       ) : (
-        <ShippingRates rates={rates} onSelect={handleRateSelect} />
+        <ShippingRates Rates={rates} onSelect={handleRateSelect} />
       )}
     </div>
   );

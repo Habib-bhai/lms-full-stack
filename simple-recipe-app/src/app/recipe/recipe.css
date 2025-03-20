@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.componentMain {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.componentMain img {
+    border-radius: 2rem;
+    height: 300px;
+}
+
+.componentMain p {
+    padding: 40px;
+}
+
+.recipeParent {
+    font-family: "Poppins";
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+}
+
+
+
+.recipeParent input {
+    border: none;
+    outline: none;
+    width: 20rem;
+    height: 3rem;
+    border-radius: 2rem;
+    text-align: center;
+    font-size: 1.2rem;
+
+}
+
+.searchInput {
+    position: relative;
+    padding: 10px;
+    width: max-content;
+}
+
+.searchInput::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    border-radius: 1.5rem;
+    left: 0;
+    height: 4rem;
+    width: 100%;
+    z-index: -1;
+    background-color: #ec4700;
+    transform: scaleX(0);
+    box-shadow: 0 0 0px 0px rgba(0, 0, 0, 0);
+    transition: transform 0.5s ease-in-out;
+}
+
+.searchInput:hover.searchInput::after  {
+    transform: scaleX(1);
+    box-shadow: 0 0 15px 5px rgba(0, 240, 204, 0.6);
+}
+
+.btn {
+    position: absolute;
+    bottom: 1;
+    outline: none;
+    border: none;
+    margin-left: 20px;
+    border-radius: 50%;
+   
+}
+
+.btn svg {
+    height: 2rem;    
+    width: 1.8rem;
+    border-radius: 50%;
+    /* background-color: black; */
+}
